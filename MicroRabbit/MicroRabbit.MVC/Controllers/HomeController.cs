@@ -1,17 +1,14 @@
 using MicroRabbit.MVC.Models;
+using MicroRabbit.MVC.Models.DTOs;
+using MicroRabbit.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace MicroRabbit.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ITransferService transferService) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ITransferService _transferService = transferService;
 
         public IActionResult Index()
         {
@@ -27,6 +24,21 @@ namespace MicroRabbit.MVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Transfer(TransferViewModel model)
+        {
+            TransferDto transferDto = new TransferDto
+            {
+                FromAccount = model.FromAccount,
+                ToAccount = model.ToAccount,
+                TransferAmount = model.TransferAmount
+            };
+
+            await _transferService.Transfer(transferDto);
+
+            return View();
         }
     }
 }

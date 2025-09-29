@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\bin\**" />
+    <Content Remove="Properties\bin\**" />
+    <EmbeddedResource Remove="Properties\bin\**" />
+    <None Remove="Properties\bin\**" />
+    <_WebToolingArtifacts Remove="Properties\bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />

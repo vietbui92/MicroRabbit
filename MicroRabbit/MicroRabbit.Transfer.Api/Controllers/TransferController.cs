@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MicroRabbit.Transfer.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/[controller]")]
     public class TransferController(ITransferService transferService) : Controller
     {
         private readonly ITransferService _transferService = transferService;
